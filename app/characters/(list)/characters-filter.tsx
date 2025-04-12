@@ -9,6 +9,7 @@ const CharactersFilter = () => {
     const [gender, setGender] = useState<string>("")
     const [name, setName] = useState<string>("")
     const [species, setSpecies] = useState<string>("")
+    const [status, setStatus] = useState<string>("")
 
     const handleFilterSubmit = () => {
 
@@ -26,13 +27,17 @@ const CharactersFilter = () => {
             queryObject["species"] = species
         }
 
+        if (status) {
+            queryObject["status"] = status
+        }
+
         window.location.replace(`/characters?${new URLSearchParams(queryObject)}`)
     }
 
-    return <div className="flex gap-4">
-
+    return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <Input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Search by name" className="w-full" />
         <Input value={species} onChange={(e) => setSpecies(e.target.value)} type="text" placeholder="Search by specie" className="w-full" />
+        <Input value={status} onChange={(e) => setStatus(e.target.value)} type="text" placeholder="Search by status" className="w-full" />
         <Select onValueChange={(value) => setGender(value)} defaultValue={gender}>
             <SelectTrigger >
                 <SelectValue placeholder="Gender" />
@@ -45,7 +50,7 @@ const CharactersFilter = () => {
                 </SelectGroup>
             </SelectContent>
         </Select>
-        <Button onClick={handleFilterSubmit}>Search</Button>
+        <Button className="md:col-span-2 lg:col-span-1" onClick={handleFilterSubmit}>Search</Button>
     </div>
 
 }
